@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>パブリッシュ - Pickles 2</title>
+
+		<meta name="viewport" content="width=device-width" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+
+		<!-- jQuery -->
+		<script src="../../common/scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+		<!-- common funcs -->
+		<script src="../../common/scripts/common_funcs.js" type="text/javascript"></script>
+
+		<!-- D3.js -->
+		<script src="../../common/d3js/d3.js"></script>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="../../common/bootstrap/css/bootstrap.min.css" />
+		<script src="../../common/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Pickles 2 Style -->
+		<link rel="stylesheet" href="../../common/px2style/dist/styles.css" charset="utf-8" />
+		<script src="../../common/px2style/dist/scripts.js" charset="utf-8"></script>
+
+		<!-- normalize & FESS -->
+		<link rel="stylesheet" href="../../common/styles/contents.css" type="text/css" />
+
+		<!-- Local Resources -->
+		<link rel="stylesheet" href="./index_files/style.css" type="text/css" />
+		<script src="./index_files/app.js"></script>
+		<script src="./index_files/app.resultReport.js"></script>
+		<script src="./index_files/app.progressReport.js"></script>
+
+		<!-- ========== templates ========== -->
+		<script id="template-before_publish" type="text/template">
+			<div class="unit center">
+				<p>パブリッシュは実行されていません。</p>
+				<p>次のボタンを押して、パブリッシュを実行します。</p>
+				<p><button class="px2-btn px2-btn--primary" onclick="contApp.publish(); return false;">パブリッシュする</button></p>
+			</div>
+		</script>
+		<script id="template-before_publish-progress" type="text/template">
+			<div class="unit cont_progress">
+				<div class="center">
+					<p>パブリッシュしています。</p>
+					<p>そのまましばらくお待ちください...</p>
+					<div class="cont_progress-phase"></div>
+					<div class="cont_progress-row"></div>
+					<div class="cont_progress-timer"></div>
+					<div class="cont_progress-currentTask"></div>
+					<div class="cont_progress-bar">
+						<div class="progress progress-striped active">
+							<div class="progress-bar"  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+								<span class="sr-only">0% Complete</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script id="template-after_publish" type="text/template">
+			<div class="cont_canvas">
+			</div>
+			<div class="cont_buttons">
+				<div class="btn-group btn-group-justified" role="group">
+					<div class="btn-group" role="group">
+						<p><button class="px2-btn" onclick="contApp.publish(); return false;">もう一度パブリッシュする</button></p>
+					</div>
+					<div class="btn-group" role="group">
+						<p><button class="px2-btn" onclick="contApp.open_publish_tmp_dir(); return false;">一時パブリッシュデータを開く</button></p>
+					</div>
+					<div class="btn-group" role="group">
+						<p><button class="px2-btn px2-btn--primary" onclick="contApp.open_publish_dir(); return false;">パブリッシュ先ディレクトリを開く</button></p>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script id="template-after_publish-canvas" type="text/template">
+			<div class="cont_results">
+				<div class="cont_results-total_file_count">total: <strong>---</strong> files.</div>
+				<div class="cont_results-errorMessage"></div>
+				<div class="cont_results-spentTime">time: <span>--:--:--</span></div>
+				<!--
+				<div class="cont_results-rows">
+					<table class="def">
+					</table>
+				</div>
+				<div class="cont_results-summaries">
+					<table class="def">
+						<tr class="cont_procTypes"><th>Process Type</th><td></td></tr>
+						<tr class="cont_statusCodes"><th>Status Code</th><td></td></tr>
+					</table>
+				</div>
+				-->
+			</div>
+		</script>
+		<script id="template-on_publish" type="text/template">
+			<p>ただいまパブリッシュプロセスが進行しています。</p>
+			<p>しばらくお待ち下さい...。</p>
+			<p><a href="javascript:;" onclick="contApp.toggle_how_to_recovery_on_publish('.cont_recovery_on_publish',this);return false;" class="glyphicon glyphicon-menu-right">しばらく待ってもこの状態から復旧しない場合は...&lt;詳細&gt;</a></p>
+			<div class="cont_recovery_on_publish" style="display:none;">
+
+				<h2>これはどういう状態ですか？</h2>
+				<p>Pickles 2 のパブリッシュプロセスは、二重起動を避けるために、次のパスにロックファイルを生成します。</p>
+				<ul>
+					<li><code>./px-files/_sys/ram/publish/applock.txt</code></li>
+				</ul>
+
+				<p>このファイルは、パブリッシュ開始時に生成され、パブリッシュ完了時に削除されます。</p>
+				<p>パブリッシュ中であれば、このファイルが存在することは健康な状態です。しかし、パブリッシュの途中でプロセスが異常終了した場合(途中でアプリを落とす、なども含む)、このファイルが残ってしまうため、次のパブリッシュが実行できない状態になります。</p>
+
+				<h2>復旧方法</h2>
+				<p>ロックファイル <code>./px-files/_sys/ram/publish/applock.txt</code> を手動で<a href="javascript:contApp.open_publish_tmp_dir();">削除します</a>。</p>
+
+				<ul class="notes">
+					<li class="notes-li">※ただし、バックグラウンドでプロセスが進行中ではないか、事前に確認してください。</li>
+					<li class="notes-li">※<code>applock.txt</code> をテキストファイルで開くと、このファイルを生成したプロセスの <strong>プロセスID</strong> と <strong>最終アクセス日時</strong> が記載されています。この情報が手がかりになるはずです。</li>
+				</ul>
+
+			</div>
+		</script>
+		<script id="template-dialog_publish_options" type="text/template">
+			<div>
+			<!-- <h2>パブリッシュ対象範囲</h2> -->
+			<div class="cont_form_pattern">
+				<select name="cont_form_pattern">
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="path_region">パブリッシュ対象範囲</label>
+				<textarea class="form-control" id="path_region" name="path_region" placeholder="/" rows="5">/</textarea>
+				<span class="help-block">パブリッシュ対象のディレクトリパスを指定してください。スラッシュから始まるパスで指定します。1行1ディレクトリで複数件指定できます。</span>
+
+				<label for="paths_ignore">パブリッシュ対象外範囲</label>
+				<textarea class="form-control" id="paths_ignore" name="paths_ignore" placeholder="/path/ignore/1/
+/path/ignore/2/" rows="5"></textarea>
+				<span class="help-block">パブリッシュ対象外にするディレクトリパスを指定してください。スラッシュから始まるパスで指定します。1行1ディレクトリで複数件指定できます。</span>
+
+				<label><input type="checkbox" name="keep_cache" value="1" /> キャッシュを消去しない</label>
+			</div>
+			</div>
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>パブリッシュ</h1>
+		</div>
+		<div class="container">
+			<div class="contents">
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,12 @@
+[submodule "submodules/node-px2dt-localdata-access"]
+	path = submodules/node-px2dt-localdata-access
+	url = https://github.com/pickles2/node-px2dt-localdata-access.git
+[submodule "submodules/node-utils79"]
+	path = submodules/node-utils79
+	url = https://github.com/tomk79/node-utils79.git
+[submodule "submodules/px2style"]
+	path = submodules/px2style
+	url = https://github.com/pickles2/px2style.git
+[submodule "submodules/node-px2agent"]
+	path = submodules/node-px2agent
+	url = https://github.com/pickles2/node-px2agent.git

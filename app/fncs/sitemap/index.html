@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>サイトマップ - Pickles 2</title>
+
+		<meta name="viewport" content="width=device-width" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+
+		<!-- jQuery -->
+		<script src="../../common/scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+		<!-- common funcs -->
+		<script src="../../common/scripts/common_funcs.js" type="text/javascript"></script>
+
+		<!-- jQuery UI -->
+		<link rel="stylesheet" href="../../common/jquery-ui/jquery-ui.min.css">
+		<script src="../../common/jquery-ui/jquery-ui.min.js"></script>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="../../common/bootstrap/css/bootstrap.min.css">
+		<script src="../../common/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Pickles 2 Style -->
+		<link rel="stylesheet" href="../../common/px2style/dist/styles.css" charset="utf-8" />
+		<script src="../../common/px2style/dist/scripts.js" charset="utf-8"></script>
+
+		<!-- normalize & FESS -->
+		<link rel="stylesheet" href="../../common/styles/contents.css" type="text/css" />
+
+		<!-- Pickles 2 - Git UI -->
+		<link rel="stylesheet" href="../../common/px2dtGitUi/px2dtGitUi.css" type="text/css" />
+		<script src="../../common/px2dtGitUi/px2dtGitUi.js"></script>
+
+		<!-- Local Resources -->
+		<link rel="stylesheet" href="./index_files/style.css" type="text/css" />
+		<script src="./index_files/app.js"></script>
+
+		<script type="text/template" id="template-manual">
+			<div class="px2-document">
+				<h2>CSVの形式について</h2>
+				<ul>
+					<li>CSVファイルはUTF-8で保存してください。</li>
+					<li>1行目は定義行として、2行目以降にページデータを記述してください。</li>
+					<li>定義行は、<code>* 定義名</code> のように、先頭にアスタリスクを記述します。</li>
+					<li><code>* path</code>、<code>* title</code> は必須です。必ず定義に加えてください。</li>
+				</ul>
+
+				<h3>規定の定義</h3>
+				<div class="px2-p">
+				<table class="px2-table">
+					<thead>
+						<tr>
+							<th>列</th>
+							<th>キー</th>
+							<th>意味</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><th>A</th><td class="selectable">path</td><td>ページのパス</td></tr>
+						<tr><th>B</th><td class="selectable">content</td><td>コンテンツファイルの格納先</td></tr>
+						<tr><th>C</th><td class="selectable">id</td><td>ページID</td></tr>
+						<tr><th>D</th><td class="selectable">title</td><td>ページタイトル</td></tr>
+						<tr><th>E</th><td class="selectable">title_breadcrumb</td><td>ページタイトル(パン屑表示用)</td></tr>
+						<tr><th>F</th><td class="selectable">title_h1</td><td>ページタイトル(H1表示用)</td></tr>
+						<tr><th>G</th><td class="selectable">title_label</td><td>ページタイトル(リンク表示用)</td></tr>
+						<tr><th>H</th><td class="selectable">title_full</td><td>ページタイトル(タイトルタグ用)</td></tr>
+						<tr><th>I</th><td class="selectable">logical_path</td><td>論理構造上のパス</td></tr>
+						<tr><th>J</th><td class="selectable">list_flg</td><td>一覧表示フラグ</td></tr>
+						<tr><th>K</th><td class="selectable">layout</td><td>レイアウト</td></tr>
+						<tr><th>L</th><td class="selectable">orderby</td><td>表示順</td></tr>
+						<tr><th>M</th><td class="selectable">keywords</td><td>metaキーワード</td></tr>
+						<tr><th>N</th><td class="selectable">description</td><td>metaディスクリプション</td></tr>
+						<tr><th>O</th><td class="selectable">category_top_flg</td><td>カテゴリトップフラグ</td></tr>
+						<tr><th>P</th><td class="selectable">role</td><td>ロール</td></tr>
+						<tr><th>Q</th><td class="selectable">proc_type</td><td>コンテンツの処理方法</td></tr>
+					</tbody>
+				</table>
+				</div><!-- /.unit -->
+
+				<h2>その他のヒント</h2>
+				<ul>
+					<li>定義列は、任意に並べ替えることができます。</li>
+					<li>定義は任意の名称で追加することができ、コンテンツやテーマから簡単に参照できます。例えば、 <code>* custom_col</code> と定義した列の値は、<code class="selectable">$px->site()->get_page_info( 'page_id', 'custom_col' )</code> や <code class="selectable">$px->site()->get_current_page_info( 'custom_col' )</code> で取得することができます。</li>
+					<li>サイトマップCSVを、グラフィカルなExcelの形式(*.xlsx)で編集することができます。<a href="https://github.com/pickles2/px2-sitemapexcel" onclick="px.utils.openURL( this.href ); return false;">pickles2/px2-sitemapexcel プラグイン</a>をプロジェクトに設定してください。</li>
+				</ul>
+			</div>
+		</script>
+
+	</head>
+	<body>
+		<div class="container">
+			<h1>サイトマップ</h1>
+		</div>
+		<div class="contents">
+			<div class="container">
+				<div class="btn-group cont_buttons" role="group">
+					<button class="btn px2-btn" onclick="contApp.openInFinder(); return false;">sitemaps フォルダを開く</button>
+					<button class="btn px2-btn px2-btn--primary" onclick="contApp.commitSitemap(); return false;">サイトマップをコミットする</button>
+					<button class="btn px2-btn" onclick="contApp.logSitemap(); return false;">コミットログ</button>
+					<button class="btn px2-btn" onclick="contApp.openManual(); return false;">ヘルプ</button>
+				</div>
+				<div class="cont_filelist_sitemap">Loading...</div>
+			<!-- /.container --></div>
+		</div>
+	</body>
+</html>

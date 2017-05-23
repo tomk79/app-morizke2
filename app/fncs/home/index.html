@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>HOME - Pickles 2</title>
+
+		<meta name="viewport" content="width=device-width" />
+
+		<!-- jQuery -->
+		<script src="../../common/scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+		<!-- common funcs -->
+		<script src="../../common/scripts/common_funcs.js" type="text/javascript"></script>
+
+		<!-- underscore -->
+		<script src="../../common/underscore/underscore-min.js" type="text/javascript"></script>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="../../common/bootstrap/css/bootstrap.min.css">
+		<script src="../../common/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Pickles 2 Style -->
+		<link rel="stylesheet" href="../../common/px2style/dist/styles.css" charset="utf-8" />
+		<script src="../../common/px2style/dist/scripts.js" charset="utf-8"></script>
+
+		<!-- normalize & FESS -->
+		<link rel="stylesheet" href="../../common/styles/contents.css" type="text/css" />
+
+		<!-- Local Resources -->
+		<link rel="stylesheet" href="./index_files/style.css" type="text/css" />
+		<script src="./index_files/app.js"></script>
+		<script src="./index_files/app.installer.git.js"></script>
+		<script src="./index_files/app.installer.pickles2.js"></script>
+
+		<script type="text/template" id="template-reselectProject-path">
+			<div>
+				<form action="javascript:;" method="get">
+					<p class="center">
+						プロジェクトのルート・ディレクトリが見つかりません。<br />もう一度選択してください。<br />
+					</p>
+					<table class="def" style="width:100%;">
+						<tr>
+							<th>Path <span class="must">必須</span></th>
+							<td><input type="file" name="pj_path" value="" nwdirectory /></td>
+						</tr>
+					</table>
+					<p class="center">
+						<button class="px2-btn px2-btn--primary">選択したパスで続ける</button>
+					</p>
+				</form>
+			</div>
+		</script>
+		<script type="text/template" id="template-reselectProject-entryScript">
+			<div>
+				<form action="javascript:;" method="get">
+					<p class="center">
+						プロジェクトの Entry Script が見つかりません。<br />プロジェクト情報の設定内容を確認してください。<br />
+					</p>
+					<p class="center">
+						<button class="px2-btn px2-btn--primary">プロジェクト情報を編集する</button>
+					</p>
+				</form>
+			</div>
+		</script>
+		<script type="text/template" id="template-is-not-empty-dir">
+			<div>
+				<form action="javascript:;" method="get">
+					<div class="center">
+						<p>このディレクトリにはすでにファイルかディレクトリが存在しているため、セットアップできません。</p>
+						<p>ディレクトリ内のファイルをすべて削除するか、他の空のディレクトリを選択しなおしてください。</p>
+					</div>
+					<div class="center">
+						<p>ディレクトリを選択しなおす場合は、次のフォームで選択してください。</p>
+					</div>
+					<table class="def" style="width:100%;">
+						<tr>
+							<th>Path <span class="must">必須</span></th>
+							<td><input type="file" name="pj_path" value="" nwdirectory /></td>
+						</tr>
+					</table>
+					<p class="center">
+						<button class="px2-btn px2-btn--primary">選択したパスで続ける</button>
+					</p>
+				</form>
+			</div>
+			<div class="more_links">
+				<ul>
+					<li><a href="javascript:px.getCurrentProject().open();">フォルダを開く</a></li>
+					<li><a href="javascript:px.openInTextEditor( contApp.pj.get('path') );">外部テキストエディタで開く</a></li>
+					<li><a href="javascript:px.openInTerminal( contApp.pj.get('path') );">コマンドラインで開く</a></li>
+				</ul>
+			</div><!-- /.more_links -->
+		</script>
+		<script type="text/template" id="template-install-pickles2">
+			<form action="javascript:;" class="inline">
+				<div class="center">
+					<h2>プロジェクトに Pickles 2 をセットアップします</h2>
+					<div class="cont_setup_options left">
+						<h3>セットアップオプション</h3>
+						<ul>
+							<li><label><input type="radio" name="setup_method" value="pickles2" checked="checked" /> Packagist から Pickles 2 プロジェクトテンプレート をセットアップ</label></li>
+							<li><label><input type="radio" name="setup_method" value="git" /> Gitリポジトリ から クローン</label>
+								<div>Repository URL: <input type="text" name="git_url_repository" value="" style="max-width:100%;" /></div>
+							</li>
+						</ul>
+					</div>
+					<div class="cont_setup_description">
+						<p>
+							<img src="./index_files/images/install_image_clip.png" alt="Composer ☓ Packagist ☓ Pickles 2" />
+						</p>
+						<p>
+							Pickles 2 の プロジェクトテンプレート を Packagest から自動的に取得し、セットアップを完了します。<br />
+						</p>
+					</div>
+					<p>
+						次のボタンを押して、セットアップを続けてください。<br />
+					</p>
+					<p>
+						<button class="px2-btn px2-btn--primary">プロジェクトをセットアップする</button>
+					</p>
+				</div>
+			</form>
+			<div class="more_links">
+				<ul>
+					<li><a href="javascript:px.getCurrentProject().open();">フォルダを開く</a></li>
+					<li><a href="javascript:px.openInTextEditor( contApp.pj.get('path') );">外部テキストエディタで開く</a></li>
+					<li><a href="javascript:px.openInTerminal( contApp.pj.get('path') );">コマンドラインで開く</a></li>
+				</ul>
+			</div><!-- /.more_links -->
+		</script>
+		<script type="text/template" id="template-standby">
+			<h2>基本的な手順</h2>
+			<div class="cols unit">
+				<div class="cols-col cols-1of4"><div class="cols-pad">
+					<button class="px2-btn cont_mainmenu" onclick="px.subapp('fncs/sitemap/index.html');">サイトマップを編集する</button>
+				</div></div>
+				<div class="cols-col cols-1of4"><div class="cols-pad">
+					<button class="px2-btn cont_mainmenu" onclick="px.subapp('fncs/theme/index.html');">テーマを編集する</button>
+				</div></div>
+				<div class="cols-col cols-1of4"><div class="cols-pad">
+					<button class="px2-btn cont_mainmenu" onclick="px.subapp('fncs/pages/index.html');">コンテンツを編集する</button>
+				</div></div>
+				<div class="cols-col cols-1of4 cols-last"><div class="cols-pad">
+					<button class="px2-btn cont_mainmenu" onclick="px.subapp('fncs/publish/index.html');">パブリッシュする</button>
+				</div></div>
+			</div><!-- / .cols -->
+			<div class="more_links">
+				<ul>
+					<li><a href="javascript:px.getCurrentProject().open();">フォルダを開く</a></li>
+					<li><a href="javascript:px.openInBrowser();">ブラウザで開く</a></li>
+					<li><a href="javascript:px.openInTextEditor( contApp.pj.get('path') );">外部テキストエディタで開く</a></li>
+					<li><a href="javascript:px.openInTerminal( contApp.pj.get('path') );">コマンドラインで開く</a></li>
+				</ul>
+				<ul>
+					<li><a href="javascript:px.subapp('fncs/config/index.html');">config.php を編集する</a></li>
+					<li><a href="javascript:px.subapp('fncs/composer/index.html');">composer を操作する</a></li>
+				</ul>
+			</div><!-- /.more_links -->
+		</script>
+		<script type="text/template" id="template-install-composer">
+			<div class="center">
+				<p>セットアップはまだ完了していません。</p>
+				<p><code>$ composer install</code> を実行するか、次のボタンを押して <em>composer を更新</em> してください。</p>
+				<p><button class="px2-btn px2-btn--primary" onclick="px.subapp('fncs/composer/index.html');return false;">composer を操作する</button></p>
+			</div>
+			<div class="more_links">
+				<ul>
+					<li><a href="javascript:px.getCurrentProject().open();">フォルダを開く</a></li>
+					<li><a href="javascript:px.openInTextEditor( contApp.pj.get('path') );">外部テキストエディタで開く</a></li>
+					<li><a href="javascript:px.openInTerminal( contApp.pj.get('path') );">コマンドラインで開く</a></li>
+				</ul>
+				<ul>
+					<li><a href="javascript:px.subapp('fncs/config/index.html');">config.php を編集する</a></li>
+					<li><a href="javascript:px.subapp('fncs/composer/index.html');">composer を操作する</a></li>
+				</ul>
+			</div><!-- /.more_links -->
+		</script>
+		<script type="text/template" id="template-conf-not-exists">
+			<div class="center">
+				<p>コンフィグ情報を正常に取得できませんでした。</p>
+				<p>PHP でエラーが発生している可能性があります。</p>
+			</div>
+			<div class="more_links">
+				<ul>
+					<li><a href="javascript:px.getCurrentProject().open();">フォルダを開く</a></li>
+					<li><a href="javascript:px.openInTextEditor( contApp.pj.get('path') );">外部テキストエディタで開く</a></li>
+					<li><a href="javascript:px.openInTerminal( contApp.pj.get('path') );">コマンドラインで開く</a></li>
+				</ul>
+				<ul>
+					<li><a href="javascript:px.subapp('fncs/config/index.html');">config.php を編集する</a></li>
+					<li><a href="javascript:px.subapp('fncs/composer/index.html');">composer を操作する</a></li>
+				</ul>
+			</div><!-- /.more_links -->
+		</script>
+		<script type="text/template" id="template-form-editProject">
+			<div class="unit">
+				<form action="javascript:;" onsubmit="cont_createProject(this);return false;" class="inline">
+					<table class="form_elements" style="width:100%;">
+						<colgroup><col width="30%" /><col width="70%" /></colgroup>
+						<tr>
+							<th>Project Name <span class="must">必須</span></th>
+							<td><input type="text" name="pj_name" value="" placeholder="Your Project Name" class="form-control" /></td>
+						</tr>
+						<tr>
+							<th>Path <span class="must">必須</span></th>
+							<td>
+								<ul class="form_elements-notes">
+									<li>変更する場合のみ、選択してください。</li>
+								</ul>
+								<input type="file" name="pj_path" value="" nwdirectory />
+							</td>
+						</tr>
+						<tr>
+							<th>Home Directory</th>
+							<td><input type="text" name="pj_home_dir" value="" placeholder="px-files/" class="form-control" /></td>
+						</tr>
+						<tr>
+							<th>Entry Script</th>
+							<td><input type="text" name="pj_entry_script" value="" placeholder=".px_execute.php" class="form-control" /></td>
+						</tr>
+					</table>
+					<h2>Optional</h2>
+					<table class="form_elements" style="width:100%;">
+						<colgroup><col width="30%" /><col width="70%" /></colgroup>
+						<tr>
+							<th>External Preview Server Origin</th>
+							<td><input type="text" name="pj_external_preview_server_origin" value="" placeholder="eg. http://localhost:8080" class="form-control" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</script>
+		<script type="text/template" id="template-status-table">
+			<% for (var key in status) { %>
+				<% if(key == 'api' || key == 'px2dthelper'){ %>
+					<% for (var key2 in status[key]) { %>
+						<tr>
+							<th><%= key %>.<%= key2 %></th>
+							<td><%= status[key][key2] %></td>
+						</tr>
+					<% } %>
+				<% }else{ %>
+					<tr>
+						<th><%= key %></th>
+						<td><%= status[key] %></td>
+					</tr>
+				<% } %>
+			<% } %>
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Project <q class="tpl_name">...</q></h1>
+		</div>
+		<div class="container">
+			<div class="contents">
+				<div class="cont_info"></div>
+				<div class="cont_maintask_ui"></div>
+				<div class="alert alert-info">Hint! : <span class="cont_hint"></span></div>
+				<div class="row">
+					<div class="col-xs-8">
+
+
+						<div class="unit">
+							<h2>README</h2>
+							<div class="cont_readme_content selectable"></div>
+							<h2>Project Information</h2>
+							<table class="def" style="width:100%; table-layout: fixed;">
+								<colgroup><col width="30%" /><col width="70%" /></colgroup>
+								<tr>
+									<th>Project Name</th>
+									<td class="tpl_name selectable">...</td>
+								</tr>
+								<tr>
+									<th>Path</th>
+									<td class="tpl_path selectable">...</td>
+								</tr>
+								<tr>
+									<th>Home Directory</th>
+									<td class="tpl_home_dir selectable">...</td>
+								</tr>
+								<tr>
+									<th>Entry Script</th>
+									<td class="tpl_entry_script selectable">...</td>
+								</tr>
+							</table>
+							<h3>Optional</h3>
+							<table class="def" style="width:100%; table-layout: fixed;">
+								<colgroup><col width="30%" /><col width="70%" /></colgroup>
+								<tr>
+									<th>External Preview Server Origin</th>
+									<td class="tpl_external_preview_server_origin selectable">...</td>
+								</tr>
+							</table>
+							<p><button class="px2-btn" onclick="contApp.editProject(); return false;">プロジェクト情報を編集する</button></p>
+						</div><!-- /.unit -->
+
+
+						<div class="unit">
+							<h2>Project Status</h2>
+							<table class="def tpl_status_table" style="width:100%; table-layout: fixed;">
+								<colgroup><col width="30%" /><col width="70%" /></colgroup>
+							</table>
+						</div><!-- /.unit -->
+
+
+					</div>
+					<div class="col-xs-4">
+						<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/pxfw" data-widget-id="567316803953504256" height="1000" onclick="px.utils.openURL(this.href);return false;">@pxfwさんのツイート</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					</div>
+				</div><!-- /.row -->
+				<p><button class="px2-btn" onclick="px.deselectProject(); px.subapp(); return false;">ダッシュボードへ戻る</button></p>
+				<p><button class="px2-btn px2-btn--danger" onclick="if(confirm('このプロジェクトを削除してよろしいですか？')){px.deleteProject( px.getCurrentProject().projectId, function(){px.subapp();} );} return false;">このプロジェクトを削除</button></p>
+				<hr />
+				<address class="center">---</address>
+
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,3 +1,11 @@
+.DS_Store
+Thumbs.db
+node_modules
+composer.lock
+/vendor/
+/cache/
+/build/
+
 # Logs
 logs
 *.log
@@ -56,4 +64,3 @@ typings/
 
 # dotenv environment variables file
 .env
-

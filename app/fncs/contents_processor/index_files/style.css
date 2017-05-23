@@ -1,0 +1,12 @@
+@charset "utf-8";
+.cont_wrap{
+    position: relative;
+    padding-bottom: 120px;
+}
+.cont_start-btn{
+    background-color: rgba(255,255,255,0.95);
+    position: fixed;
+    bottom: 0px; left: 0px;
+    z-index: 1000;
+    width: 100%;
+}

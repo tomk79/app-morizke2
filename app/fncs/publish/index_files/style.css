@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+.contents button{
+	width: 100%;
+	margin-left:0; margin-right: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.contents .cont_canvas{
+	overflow: auto;
+}
+
+.cont_canvas{
+	position: relative; top: 0; left: 0;
+}
+.cont_results{
+	position: absolute; top: 0; left: 0;
+	width: 100%;
+	height: 100%;
+}
+.cont_results-total_file_count{
+	position: absolute;
+	bottom: 70px; right: 50px;
+	line-height: 0;
+}
+.cont_results-total_file_count strong{
+	font-size: 500%;
+}
+.cont_results-spentTime{
+	position: absolute;
+	bottom: 50px; right: 50px;
+	line-height: 0;
+}
+.cont_results-spentTime span{
+	font-weight:bold;
+}
+
+.cont_results-rows{
+	overflow: auto;
+	height: 240px;
+	width: 300px;
+}
+.cont_results-summaries{
+	height: 100px;
+	width: 300px;
+	overflow: auto;
+}
+
+.cont_results-errorMessage{
+	position: absolute;
+	top: 50px; right: 50px;
+	display: none;
+	color: #f00;
+	font-weight: bold;
+}
+
+/**
+ * エラーがある場合の表示
+ */
+.cont_results.cont_results-error{
+	background: #fff6f6;
+}
+.cont_results.cont_results-error .cont_results-errorMessage{
+	display: block;
+}

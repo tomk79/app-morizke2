@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>コンテンツ - Pickles 2</title>
+
+		<meta name="viewport" content="width=device-width" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+
+		<!-- jQuery -->
+		<script src="../../common/scripts/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+		<!-- common funcs -->
+		<script src="../../common/scripts/common_funcs.js" type="text/javascript"></script>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="../../common/bootstrap/css/bootstrap.min.css">
+		<script src="../../common/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- Pickles 2 Style -->
+		<link rel="stylesheet" href="../../common/px2style/dist/styles.css" charset="utf-8" />
+		<script src="../../common/px2style/dist/scripts.js" charset="utf-8"></script>
+
+		<!-- normalize & FESS -->
+		<link rel="stylesheet" href="../../common/styles/contents.css" type="text/css" />
+		<script src="../../common/styles/contents.js"></script>
+
+		<!-- Pickles 2 - Git UI -->
+		<link rel="stylesheet" href="../../common/px2dtGitUi/px2dtGitUi.css" type="text/css" />
+		<script src="../../common/px2dtGitUi/px2dtGitUi.js"></script>
+
+		<!-- Local Resources -->
+		<link rel="stylesheet" href="./index_files/style.css" type="text/css" />
+		<script src="./index_files/app.js"></script>
+
+		<!-- ========== templates ========== -->
+		<script id="template-change-proctype" type="text/template">
+			<ul>
+				<li><label><input type="radio" name="proc_type" value="html.gui" /> HTML + GUI Editor</label></li>
+				<li><label><input type="radio" name="proc_type" value="html" /> HTML</label></li>
+				<li><label><input type="radio" name="proc_type" value="md" /> Markdown</label></li>
+			</ul>
+		</script>
+		<script id="template-bootstrap3-btn-dropdown-toggle" type="text/template">
+<div class="btn-group">
+	<button type="button" class="btn px2-btn px2-btn--primary px2-btn--lg btn--edit">編集する</button>
+	<button type="button" class="btn px2-btn px2-btn--lg btn--resources">リソース</button>
+	<button type="button" class="btn px2-btn px2-btn--lg dropdown-toggle" data-toggle="dropdown">
+		<span class="caret"></span>
+		<span class="sr-only">Toggle Dropdown</span>
+	</button>
+	<ul class="dropdown-menu cont_page-dropdown-menu">
+	</ul>
+</div><!-- /btn-group -->
+
+		</script>
+		<script id="template-copy-from-other-page" type="text/template">
+			<p>コピー元のページパスを入力してください。</p>
+			<p><input type="text" value="" class="form-control" style="width: 100%;" /></p>
+			<div class="cont_sample_list">
+			</div>
+		</script>
+		<script id="template-not-enough-api-version" type="text/template">
+			<div class="container selectable">
+				<div class="alert alert-danger" role="alert">
+					<p>API の設定が十分ではありません。</p>
+					<ul>
+						<% for( key in errors ){ %>
+							<li><%= errors[key] %></li>
+						<% } %>
+					</ul>
+				</div>
+				<p>この問題を改善するには、次の点を確認してください。</p>
+				<ul>
+					<li><code>composer.json</code> を<a href="javascript: window.px.subapp('./fncs/composer/index.html');">更新</a>してください。
+						<ul>
+							<li><code>composer.json</code> に記述されたパッケージのバージョン番号が、要件を満たしていることを確認してください。</li>
+							<li><code>$ composer update</code> を実行して、パッケージを更新してください。</li>
+						</ul>
+					</li>
+					<li><code>config.php</code> を<a href="javascript: window.px.subapp('./fncs/config/index.html');">編集</a>し、プラグインパッケージを適切に設定してください。
+						<ul>
+							<li><code>$conf->funcs->before_sitemap</code> に、<code>picklesFramework2\commands\clearcache::register</code>、 <code>picklesFramework2\commands\config::register</code>、 <code>tomk79\pickles2\sitemap_excel\pickles_sitemap_excel::exec</code> を設定します。</li>
+							<li><code>$conf->funcs->before_content</code> に、<code>picklesFramework2\commands\api::register</code>、 <code>picklesFramework2\commands\publish::register</code>、 <code>tomk79\pickles2\px2dthelper\main::register</code> を設定します。</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</script>
+		<script id="template-breadcrumb" type="text/template">
+			<ul>
+				<% for( key in navigationInfo.breadcrumb_info ){ %>
+					<li><a href="javascript:;" data-page-path="<%= navigationInfo.breadcrumb_info[key].path %>"><%= navigationInfo.breadcrumb_info[key].title_breadcrumb %></a></li>
+				<% } %>
+				<li><strong><%= navigationInfo.page_info.title_breadcrumb %></strong></li>
+			</ul>
+		</script>
+		<script id="template-bros-list" type="text/template">
+			<ul class="listview">
+			<% for( key in navigationInfo.bros_info ){ %>
+				<li><a href="javascript:;" data-id="<%= navigationInfo.bros_info[key].id %>" data-page-path="<%= navigationInfo.bros_info[key].path %>"><%= navigationInfo.bros_info[key].title %></a>
+					<% if( navigationInfo.bros_info[key].id == navigationInfo.page_info.id && navigationInfo.children_info.length ){ %>
+					<ul>
+					<% for( key in navigationInfo.children_info ){ %>
+						<li><a href="javascript:;" data-id="<%= navigationInfo.children_info[key].id %>" data-page-path="<%= navigationInfo.children_info[key].path %>" style="font-size: 80%;"><%= navigationInfo.children_info[key].title %></a></li>
+					<% } %>
+					</ul>
+					<% } %>
+				</li>
+			<% } %>
+			</ul>
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>コンテンツ</h1>
+		</div>
+		<div class="contents">
+			<div class="container-fluid">
+				<div style="float:right;"><a href="javascript:;" data-placement="bottom" title="コンテンツは、サイトマップCSVに記述されたページ1つにつき1つ編集します。
+特別な場合を除き、コンテンツはヘッダー、フッターなどの共通部分(=テーマ領域)を含まない、コンテンツエリアのみのHTMLコードとして管理されています。
+一覧からページを選択し、コンテンツを編集してください。"><span class="glyphicon glyphicon-question-sign"></span> ヒント</a></div>
+				<div class="cont_breadcrumb"></div>
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-9">
+						<div class="cont_page_info clearfix"></div>
+						<div class="preview_window_frame cont_preview"><div class="preview_window_frame--inner">
+							<iframe></iframe>
+						</div></div>
+					</div>
+					<div class="col-xs-3">
+						<div class="cont_comment_view">
+						</div><!-- /.cont_comment_view -->
+						<div class="cont_workspace_search">
+							<div class="input-group input-group-sm">
+
+								<form action="javascript;;" id="cont_search_form">
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="Search..." />
+										<span class="input-group-btn">
+											<button class="px2-btn px2-btn--primary" type="submit">検索</button>
+										</span>
+									</div><!-- /input-group -->
+
+									<div class="btn-group btn-group-justified" data-toggle="buttons">
+										<label class="btn px2-btn active">
+											<input type="radio" name="list-label" value="title" checked="checked" />title
+										</label>
+										<label class="btn px2-btn">
+											<input type="radio" name="list-label" value="path" />path
+										</label>
+									</div>
+								</form>
+							</div>
+						</div><!-- /.cont_workspace_filter -->
+						<div class="cont_workspace_container">
+							<div class="cont_sitemap_parent"></div>
+							<div class="cont_sitemap_broslist"></div>
+							<div class="cont_sitemap_search"></div>
+						</div><!-- /.cont_workspace_container -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

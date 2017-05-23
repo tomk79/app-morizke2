@@ -1,0 +1,31 @@
+,en,ja,zh,zh-TW
+welcome,Welcome,ようこそ,Welcome,Welcome
+menu.home,HOME,ホーム,HOME,HOME
+menu.sitemap,Sitemap,サイトマップ,网站地图,網站地圖
+menu.theme,Theme,テーマ,主题,主題
+menu.pages,Contents,コンテンツ,內容,內容
+menu.publish,Publish,パブリッシュ,发布,發布
+menu.dashboard,Dashboard,ダッシュボード,控制版面,控制版面
+menu.openFolder,Open Folder,フォルダを開く,打开文件夹,打開文件夾
+menu.openInBrowser,Open in Browser,ブラウザで開く,在浏览器中打开,在瀏覽器中打開
+menu.openInTexteditor,Open in Text editor,テキストエディタで開く,在Text editor中打开,在Text editor中打開
+menu.openInTerminal,Open in Terminal,コマンドラインで開く,在Terminal中打开,在Terminal中打開
+menu.projectConfig,Project Config(config.php),プロジェクト共有設定(config.php),项目设定(config.php),項目設定(config.php)
+menu.composer,composer,composer,composer,composer
+menu.git,git,git,git,git
+menu.preview,Preview,プレビュー,预览,預覽
+menu.moveContents,Move Contents,コンテンツを移動する,移动内容,移動內容
+menu.search,Search,検索,搜索,搜尋
+menu.module,Modules,モジュール,,
+menu.styleguideGenerator,"Style Guide Generator",スタイルガイド生成,,
+menu.contentsProcessor,Contents Processor,コンテンツーを一括加工,,
+menu.updateGuiContents,Update all GUI Edited Contents,GUI編集コンテンツーを一括再構成,更新全部GUI编辑内容,更新全部GUI編輯內容
+menu.clearcache,Clear Cache,キャッシュを消去,清除缓存,清除緩存
+menu.systemInfo,System Information,システム情報,系统信息,系統信息
+menu.desktoptoolConfig,"Application Config","アプリケーション設定",桌面工具设定,桌面工具設定
+menu.help,Help,ヘルプ,帮助,幫助
+menu.developerTool,Developer Tool,デペロッパツール,开发人员工具,開發人員工具
+menu.exit,Exit,終了,退出,退出
+ui_label.ok,OK,OK,OK,OK
+ui_label.cancel,Cancel,キャンセル,取消,取消
+ui_label.close,Close,閉じる,关闭,關閉

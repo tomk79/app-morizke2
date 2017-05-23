@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+.CodeMirror {
+	border: 1px solid #eee;
+	height: auto;
+}
+
+.cont_console{
+	min-height:120px;
+	max-height:360px;
+}

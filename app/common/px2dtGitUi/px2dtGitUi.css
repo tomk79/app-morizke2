@@ -1,0 +1,63 @@
+.px2dt-git-commit{
+}
+.px2dt-git-commit .px2dt-git-commit__stats-untracked{
+	border-left: 4px solid #3f9;
+}
+.px2dt-git-commit .px2dt-git-commit__stats-added{
+	border-left: 4px solid #3f9;
+}
+.px2dt-git-commit .px2dt-git-commit__stats-modified{
+	border-left: 4px solid #f93;
+}
+.px2dt-git-commit .px2dt-git-commit__stats-deleted{
+	border-left: 4px solid #f00;
+	color: #f00;
+}
+.px2dt-git-commit .px2dt-git-commit__stats-unknown{
+	border-left: 4px solid #999;
+}
+
+.px2dt-git-commit__loglist{
+	background-color: #fff;
+}
+.px2dt-git-commit__loglist:hover{
+	background-color: #eee;
+	cursor: pointer;
+}
+.px2dt-git-commit__loglist-row{
+	display: flex;
+}
+.px2dt-git-commit__loglist-row-date{
+	width: 20%;
+	font-size: 80%;
+}
+.px2dt-git-commit__loglist-row-title{
+	width: 40%;
+}
+.px2dt-git-commit__loglist-row-name{
+	width: 20%;
+	font-size: 80%;
+}
+.px2dt-git-commit__loglist-row-hash{
+	width: 20%;
+	font-size: 80%;
+}
+.px2dt-git-commit__loglist-row>div{
+	padding: 0 0.5em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.px2dt-git-commit__loglist-row>div:first-child{
+	padding-left: 0;
+}
+.px2dt-git-commit__loglist-row>div:last-child{
+	padding-right: 0;
+}
+.px2dt-git-commit__loglist-detail{
+	border: 1px solid #eee;
+	background-color: #fff;
+	border-radius: 3px;
+	cursor: default;
+	padding: 12px;
+}
