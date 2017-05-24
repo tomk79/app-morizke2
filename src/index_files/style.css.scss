@@ -19,7 +19,7 @@ header.theme_header{
 	width: 100%;
 	min-height: 10px;
 	z-index: 100;
-	border-bottom: 3px solid #00a0e6;
+	border-bottom: 3px solid #ff9933;
 	box-shadow: 0 5px 13px rgba(0, 0, 0, 0.1);
 	color: #666;
 	line-height: 1;
@@ -104,12 +104,12 @@ header.theme_header{
 				border-bottom: 3px solid transparent;
 
 				&:hover{
-					color:#00a0e6;
+					color:#ff9933;
 				}
 				&.current{
 					font-weight: bold;
 					border-bottom-color: rgba(255, 255, 255, 0.85);
-					color:#00a0e6;
+					color:#ff9933;
 				}
 			}
 			span{
@@ -128,7 +128,7 @@ header.theme_header{
 	button{
 		background: #f9f9f9;
 		border: none;
-		border-left: 1px solid #00a0e6;
+		border-left: 1px solid #ff9933;
 		position: absolute; top:0; right:0;
 		height: 30px;
 		width: 30px;
@@ -167,7 +167,7 @@ header.theme_header{
 				}
 				&.current{
 					font-weight: bold;
-					background-color:#00a0e6;
+					background-color:#ff9933;
 					color: #fff;
 				}
 			}
@@ -239,7 +239,7 @@ header.theme_header{
 	background-image: url('./images/main.png');
 	background-position: center center;
 	background-size: cover;
-	color: #00a0e6;
+	color: #ff9933;
 	padding: 3em 0.5em;
 }
 

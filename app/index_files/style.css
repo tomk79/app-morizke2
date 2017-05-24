@@ -23,7 +23,7 @@ header.theme_header {
   width: 100%;
   min-height: 10px;
   z-index: 100;
-  border-bottom: 3px solid #00a0e6;
+  border-bottom: 3px solid #ff9933;
   box-shadow: 0 5px 13px rgba(0, 0, 0, 0.1);
   color: #666;
   line-height: 1;
@@ -97,11 +97,11 @@ header.theme_header {
         text-decoration: none;
         border-bottom: 3px solid transparent; }
         .theme_gmenu ul li a:hover, .theme_gmenu ul li span:hover {
-          color: #00a0e6; }
+          color: #ff9933; }
         .theme_gmenu ul li a.current, .theme_gmenu ul li span.current {
           font-weight: bold;
           border-bottom-color: rgba(255, 255, 255, 0.85);
-          color: #00a0e6; }
+          color: #ff9933; }
       .theme_gmenu ul li span {
         padding-left: 0;
         padding-right: 0; }
@@ -116,7 +116,7 @@ header.theme_header {
   .theme_shoulder_menu button {
     background: #f9f9f9;
     border: none;
-    border-left: 1px solid #00a0e6;
+    border-left: 1px solid #ff9933;
     position: absolute;
     top: 0;
     right: 0;
@@ -155,7 +155,7 @@ header.theme_header {
           color: #fff; }
         .theme_shoulder_menu ul li a.current {
           font-weight: bold;
-          background-color: #00a0e6;
+          background-color: #ff9933;
           color: #fff; }
 
 /**
@@ -212,7 +212,7 @@ header.theme_header {
   background-image: url("./images/main.png");
   background-position: center center;
   background-size: cover;
-  color: #00a0e6;
+  color: #ff9933;
   padding: 3em 0.5em; }
 
 .cont_top_footer {

@@ -150,7 +150,7 @@ ul.listview {
         background-color: #f9f9f9; }
       ul.listview li > a.current {
         font-weight: bold;
-        background-color: #00a0e6;
+        background-color: #ff9933;
         color: #fff; }
     ul.listview li ul {
       padding: 0;
