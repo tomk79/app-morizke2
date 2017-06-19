@@ -115,29 +115,6 @@ window.contApp = new (function(){
 				return;
 			} ,
 			function(it, arg){
-				var hint = px.hint.getRandom();
-				// console.log(hint);
-				$('.cont_hint').html( hint );
-				it.next(arg);
-			} ,
-			function(it, arg){
-				if( !status.isPxStandby || !status.pathExists || !status.composerJsonExists || !status.vendorDirExists || !status.confFileExists ){
-					// セットアップが不十分な場合は、 composer update をチェックしない。
-					it.next(arg);
-					return;
-				}
-				px.composerUpdateChecker.getStatus(pj, function(checked){
-					// console.log('composerUpdateChecker.check() done.', checked.status);
-					if( checked.status == 'update_found' ){
-						$('.cont_info').append( $('<div class="alert alert-info">')
-							.append( $('<span>').text('composer パッケージのいくつかに、新しいバージョンが見つかりました。') )
-							.append( $('<a href="javascript:px.subapp(\'fncs/composer/index.html\');">').text('いますぐ更新することをお勧めします。') )
-						);
-					}
-					it.next(arg);
-				});
-			} ,
-			function(it, arg){
 				// README.md を表示する
 				var readmePath = pj.get('path');
 				if( status.gitDirExists ){

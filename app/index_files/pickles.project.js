@@ -93,14 +93,6 @@ module.exports = function( window, px, projectInfo, projectId, cbStandby ) {
 				return;
 			}); })
 			.then(function(){ return new Promise(function(rlv, rjt){
-				// composer パッケージの更新をチェックする。
-				px.composerUpdateChecker.check(pj, function(checked){
-					// console.log('composerUpdateChecker.check() done.', checked.status);
-				});
-				rlv();
-				return;
-			}); })
-			.then(function(){ return new Promise(function(rlv, rjt){
 				// console.log('project "' + _this.projectInfo.name + '" (projectId: ' + _this.projectId + ') initialized.');
 				cbStandby();
 				rlv();

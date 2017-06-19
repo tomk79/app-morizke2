@@ -12,9 +12,6 @@ new (function($, window){
 	// jQuery
 	this.$ = $;
 
-	// Underscore
-	this._ = _;
-
 	// package.json
 	var _packageJson = require('../package.json');
 	this.packageJson = _packageJson;
@@ -190,15 +187,6 @@ new (function($, window){
 					return;
 				},
 				function(it1, data){
-					// ヒント機能のロード
-					var Px2Hint = require('./index_files/pickles.hint.js');
-					px.hint = new Px2Hint( px, require('path').resolve('./app/common/language/hint.csv'), function(){
-						px.hint.setLang(px.px2dtLDA.getLanguage());
-						it1.next();
-					}); // new LangBank()
-					return;
-				},
-				function(it1, data){
 					// file watcher
 					var FileWatcher = require('./index_files/pickles.watcher.js');
 					px.watcher = new FileWatcher( px );
@@ -211,13 +199,6 @@ new (function($, window){
 						it1.next();
 						return;
 					}); // px.load()
-					return;
-				},
-				function(it1, data){
-					var ComposerUpdateChecker = require('./index_files/pickles.composerUpdateChecker.js');
-					px.composerUpdateChecker = new ComposerUpdateChecker( px, function(){
-						it1.next();
-					});
 					return;
 				},
 				function(it1, data){
@@ -801,19 +782,19 @@ new (function($, window){
 		_menu.drawGlobalMenu($shoulderMenu, _current_app);
 
 		if( cpj === null ){
-			$('.theme_px2logo').css({
+			$('.theme-header__px2logo').css({
 				"width": 70,
 				"height": 70
 			});
-			$('.theme_id')
+			$('.theme-header__id')
 				.css({"opacity":0})
 			;
 		}else{
-			$('.theme_px2logo').css({
+			$('.theme-header__px2logo').css({
 				"width": 45,
 				"height": 45
 			});
-			$('.theme_id')
+			$('.theme-header__id')
 				.html('')
 				.append( $('<div>')
 					.text( /* '-> ' + */ cpj.get('name') )
@@ -947,7 +928,7 @@ new (function($, window){
 					'border-bottom-color': _packageJson.pickles2.colors.defaultKeyColor,
 					'color': _packageJson.pickles2.colors.defaultKeyColor
 				});
-				$header.find('.theme_px2logo a')
+				$header.find('.theme-header__px2logo a')
 					.html(function(){
 						var src = _fs.readFileSync('./app/common/images/logo.svg').toString();
 						return src;
