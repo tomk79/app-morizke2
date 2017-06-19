@@ -37,13 +37,13 @@ module.exports = function(px){
 				it1.next();
 
 			},
-			function(it1, arg){
-				// --------------------------------------
-				// 情報収集: Preview URL
-				systemInfo.push({'label': 'Preview URL', 'value': px.preview.getUrl()});
-				it1.next();
-
-			},
+			// function(it1, arg){
+			// 	// --------------------------------------
+			// 	// 情報収集: Preview URL
+			// 	systemInfo.push({'label': 'Preview URL', 'value': px.preview.getUrl()});
+			// 	it1.next();
+			//
+			// },
 			function(it1, arg){
 				callback(systemInfo);
 			}

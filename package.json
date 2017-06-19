@@ -70,8 +70,8 @@
     "title": "Morizke 2",
     "toolbar": true,
     "frame": true,
-    "width": 1024,
-    "height": 520,
+    "width": 480,
+    "height": 600,
     "fullscreen": false,
     "icon": "app/common/images/appicon.png",
     "position": "center"
