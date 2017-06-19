@@ -249,25 +249,8 @@ new (function($, window){
 				},
 				function(it1, data){
 					// メニュー設定
-					_menu = [
-						{"label":px.lb.get('menu.home'),                 "cond":"projectSelected",    "area":"mainmenu", "app":"fncs/home/index.html", "cb": function(){px.subapp();}} ,
-						{"label":px.lb.get('menu.dashboard'),      "cond":"projectSelected",    "area":"shoulder", "app":"index.html", "cb": function(){px.deselectProject();px.subapp();}} ,
-						{"label":px.lb.get('menu.openFolder'),       "cond":"homeDirExists",      "area":"shoulder", "app":null, "cb": function(){px.getCurrentProject().open();}},
-						{"label":px.lb.get('menu.openInTexteditor'), "cond":"homeDirExists",      "area":"shoulder", "app":null, "cb": function(){px.openInTextEditor( px.getCurrentProject().get('path') );}},
-						{"label":px.lb.get('menu.openInTerminal'), "cond":"homeDirExists",      "area":"shoulder", "app":null, "cb": function(){px.openInTerminal( px.getCurrentProject().get('path') );}},
-						{"label":px.lb.get('menu.clearcache'),     "cond":"pxStandby",          "area":"shoulder", "app":"fncs/clearcache/index.html", "cb": function(){px.subapp($(this).data('app'));}} ,
-						{"label":px.lb.get('menu.systemInfo'),         "cond":"always",             "area":"shoulder", "app":null, "cb": function(){px.dialog({
-							title: px.lb.get('menu.systemInfo'),
-							body: $('<iframe>').attr('src', 'mods/systeminfo/index.html').css({'width':'100%','height':460})
-						});}} ,
-						{"label":_appName+" "+px.lb.get('menu.desktoptoolConfig'), "cond":"always",        "area":"shoulder", "app":null, "cb": function(){px.editPx2DTConfig();}} ,
-						{"label":px.lb.get('menu.developerTool'), "cond":"always", "area":"shoulder", "app":null, "cb": function(){
-							// ブラウザの DevTools を開く
-							nw.Window.get().showDevTools();
-							// TODO: nodeJs の DevTools は スクリプト上から開けない？
-						} },
-						{"label":px.lb.get('menu.exit'),                 "cond":"always",             "area":"shoulder", "app":null, "cb": function(){px.exit();}}
-					];
+					var gmenu = require('./index_files/globalmenu.js');
+					_menu = new gmenu(px);
 					it1.next(data);
 				},
 				function(it1, data){
@@ -562,16 +545,6 @@ new (function($, window){
 		return px.px2dtLDA.getData();
 	}
 
-
-	/**
-	 * ブラウザで開く
-	 */
-	this.openInBrowser = function(){
-		var px = this;
-		px.utils.openURL( px.preview.getUrl() );
-		return;
-	}
-
 	/**
 	 * ヘルプページを開く
 	 */
@@ -819,54 +792,13 @@ new (function($, window){
 			cpj_s = cpj.status()
 		}
 
-		$('.theme_gmenu').html( $('<ul>')
+		$('.theme-header__gmenu').html( $('<ul>')
 			.append( $('<li>')
 				.append( '<span>&nbsp;</span>' )
 			)
 		);
 		$shoulderMenu.find('ul').html('');
-		for( var i in _menu ){
-			if( _menu[i].cond == 'projectSelected' ){
-				if( cpj === null ){
-					continue;
-				}
-			}else if( _menu[i].cond == 'composerJsonExists' ){
-				if( cpj === null || !cpj_s.composerJsonExists ){
-					continue;
-				}
-			}else if( _menu[i].cond == 'homeDirExists' ){
-				if( cpj === null || !cpj_s.homeDirExists ){
-					continue;
-				}
-			}else if( _menu[i].cond == 'pxStandby' ){
-				if( cpj === null || !cpj_s.isPxStandby ){
-					continue;
-				}
-			}else if( _menu[i].cond != 'always' ){
-				continue;
-			}
-
-			var $tmpMenu = $('<a>')
-				.attr({"href":"javascript:;"})
-				.click(_menu[i].cb)
-				.text(_menu[i].label)
-				.data('app', _menu[i].app)
-				.addClass( ( _current_app==_menu[i].app ? 'current' : '' ) )
-			;
-
-			switch( _menu[i].area ){
-				case 'shoulder':
-					$shoulderMenu.find('ul').append( $('<li>')
-						.append( $tmpMenu )
-					);
-					break;
-				default:
-					$('.theme_gmenu ul').append( $('<li>')
-						.append( $tmpMenu )
-					);
-					break;
-			}
-		}
+		_menu.drawGlobalMenu($shoulderMenu, _current_app);
 
 		if( cpj === null ){
 			$('.theme_px2logo').css({
@@ -1009,7 +941,7 @@ new (function($, window){
 				$contents = $('.contents');
 				$footer   = $('.theme_footer');
 				// $dialog   = $('<div>');
-				$shoulderMenu = $('.theme_shoulder_menu');
+				$shoulderMenu = $('.theme-header__shoulder-menu');
 
 				$header.css({
 					'border-bottom-color': _packageJson.pickles2.colors.defaultKeyColor,

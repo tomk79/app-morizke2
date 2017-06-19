@@ -74,7 +74,7 @@ header.theme_header{
 }
 
 // グローバルメニュー
-.theme_gmenu{
+.theme-header__gmenu{
 	padding: 0;
 	margin: 0;
 	float: right;
@@ -121,7 +121,7 @@ header.theme_header{
 }
 
 // ハンバーガーメニュー
-.theme_shoulder_menu{
+.theme-header__shoulder-menu{
 	position: fixed; top: 0; right: 0;
 	padding: 0; margin: 0;
 	overflow: hidden;
