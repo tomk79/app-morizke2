@@ -1449,36 +1449,87 @@ window.contApp = new (function(){
 
 		if( !status.isPxStandby ){
 			// 準備ができていない
-			$mainTaskUi
-				.html( $('#template-not-ready').html() )
-			;
-		}else{
-			// ちゃんとインストールできてます
-			var tpl = $('#template-standby').html();
-			tpl = px.utils.bindEjs(tpl, {
-				'exportMenu': [
-					{
-						'label': 'Wordpress',
-						'targetSystemName': 'wordpress'
-					},
-					{
-						'label': 'baserCMS',
-						'targetSystemName': 'basercms'
-					},
-					{
-						'label': 'AEM',
-						'targetSystemName': 'aem'
-					}
-				]
-			}, {});
-			$mainTaskUi
-				.html( tpl )
-			;
-			$mainTaskUi.find('button').on('click', function(e){
-				var $this = $(this);
-				alert( $this.attr('data-target-system-name') );
-			});
+			_this.pageNotReady(callback);
+			return;
 		}
+
+		// ちゃんとインストールできてます
+		var tpl = $('#template-standby').html();
+		tpl = px.utils.bindEjs(tpl, {
+			'exportMenu': [
+				{
+					'label': 'Wordpress',
+					'targetSystemName': 'wordpress'
+				},
+				{
+					'label': 'baserCMS',
+					'targetSystemName': 'basercms'
+				},
+				{
+					'label': 'AEM',
+					'targetSystemName': 'aem'
+				}
+			]
+		}, {});
+		$mainTaskUi
+			.html( tpl )
+		;
+		$mainTaskUi.find('button').on('click', function(e){
+			var $this = $(this);
+			var systemName = $this.attr('data-target-system-name');
+			// alert( $this.attr('data-target-system-name') );
+			_this.pageConfig(systemName, function(){
+				console.log('done.');
+			});
+		});
+
+		callback();
+		return;
+	}
+
+
+	/**
+	 * 設定画面を表示する
+	 */
+	this.pageConfig = function(systemName, callback){
+		callback = callback || function(){};
+
+		if( !status.isPxStandby ){
+			// 準備ができていない
+			_this.pageNotReady(callback);
+			return;
+		}
+
+		// ちゃんとインストールできてます
+		var tpl = $('#template-page-config').html();
+		tpl = px.utils.bindEjs(tpl, {
+			'targetSystemName': systemName
+		}, {});
+		$mainTaskUi
+			.html( tpl )
+		;
+		$mainTaskUi.find('form.cont-form-execute').on('submit', function(e){
+			var $this = $(this);
+			alert( $this.find('input[name=target-system-name]').val() );
+		});
+		$mainTaskUi.find('.cont-btn-cancel').on('click', function(e){
+			_this.pageStart();
+		});
+
+
+		callback();
+		return;
+	}
+
+
+	/**
+	 * 準備ができていません画面を表示する
+	 */
+	this.pageNotReady = function(callback){
+		callback = callback || function(){};
+		$mainTaskUi
+			.html( $('#template-not-ready').html() )
+		;
 
 		var errors = pj.getErrors();
 		if( errors.length ){
@@ -1490,7 +1541,9 @@ window.contApp = new (function(){
 		}
 
 		callback();
+		return;
 	}
+
 
 	/**
 	 * イベント

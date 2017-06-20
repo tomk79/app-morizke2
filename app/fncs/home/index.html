@@ -35,6 +35,16 @@
 <% }); %>
 			</div>
 		</script>
+		<script type="text/template" id="template-page-config">
+			<div>
+				<p>設定を入力して、実行ボタンをクリックしてください。</p>
+				<form action="javascript:;" method="post" class="cont-form-execute">
+					<input type="hidden" name="target-system-name" value="<%= targetSystemName %>" />
+					<p><button class="px2-btn px2-btn--primary">実行する</button></p>
+				</form>
+				<p><button class="px2-btn cont-btn-cancel">キャンセル</button></p>
+			</div>
+		</script>
 		<script type="text/template" id="template-not-ready">
 			<div class="center">
 				<p>ウェブプロジェクトの準備ができていないようです。</p>
