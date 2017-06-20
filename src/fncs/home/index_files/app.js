@@ -102,12 +102,54 @@ window.contApp = new (function(){
 		;
 		$mainTaskUi.find('form.cont-form-execute').on('submit', function(e){
 			var $this = $(this);
-			alert( $this.find('input[name=target-system-name]').val() );
+			var systemName = $this.find('input[name=target-system-name]').val();
+			// alert( systemName );
+			var options = {};
+			_this.pageExecute(systemName, options);
 		});
 		$mainTaskUi.find('.cont-btn-cancel').on('click', function(e){
 			_this.pageStart();
 		});
 
+
+		callback();
+		return;
+	}
+
+
+	/**
+	 * 出力を実行する
+	 */
+	this.pageExecute = function(systemName, options, callback){
+		callback = callback || function(){};
+
+		if( !status.isPxStandby ){
+			// 準備ができていない
+			_this.pageNotReady(callback);
+			return;
+		}
+
+		// 実行中画面を表示します
+		var tpl = $('#template-page-execute').html();
+		tpl = px.utils.bindEjs(tpl, {
+			'targetSystemName': systemName
+		}, {});
+		$mainTaskUi
+			.html( tpl )
+		;
+
+		px.export(systemName, options, function(result){
+			var tpl = $('#template-page-complete').html();
+			tpl = px.utils.bindEjs(tpl, {
+				'targetSystemName': systemName
+			}, {});
+			$mainTaskUi
+				.html( tpl )
+			;
+			$mainTaskUi.find('.cont-btn-back').on('click', function(e){
+				_this.pageStart();
+			});
+		});
 
 		callback();
 		return;

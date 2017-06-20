@@ -556,6 +556,19 @@ new (function($, window){
 	}
 
 	/**
+	 * 出力を実行する
+	 */
+	this.export = function(systemName, option, callback){
+		callback = callback || function(){};
+		var Exporter = require('./index_files/export/export.js');
+		var exporter = new Exporter(this);
+		exporter.execute(systemName, option, function(result){
+			callback(result);
+		});
+		return;
+	}
+
+	/**
 	 * サブアプリケーション
 	 */
 	this.subapp = function(appName){
