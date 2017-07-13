@@ -4,6 +4,8 @@
 module.exports = function(px){
 	var plugins = {};
 	plugins.wordpress = require('./plugins/wordpress/main.js');
+	plugins.basercms = require('./plugins/basercms/main.js');
+	plugins.aem = require('./plugins/aem/main.js');
 
 	/**
 	 * 出力を実行する
@@ -14,7 +16,7 @@ module.exports = function(px){
 			callback(false);
 			return;
 		}
-		plugins[systemName].execute(systemName, option, function(result){
+		plugins[systemName].execute(px, systemName, option, function(result){
 			callback(result);
 		});
 		return;
