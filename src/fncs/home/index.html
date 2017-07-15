@@ -31,14 +31,34 @@
 			<div>
 				<p>出力先システムの種類を選択してください。</p>
 <% exportMenu.forEach(function (value, key) { %>
-<p><button class="px2-btn" data-target-system-name="<%= value.targetSystemName %>"><%= value.label %></button></p>
+<p><button class="px2-btn" data-target-system-name="<%= value %>"><%= systemLabel[value] %></button></p>
 <% }); %>
 			</div>
 		</script>
 		<script type="text/template" id="template-page-config">
 			<div>
-				<p>設定を入力して、実行ボタンをクリックしてください。</p>
+				<h2><%= systemLabel[targetSystemName] %> へ出力します</h2>
 				<form action="javascript:;" method="post" class="cont-form-execute">
+					<% if( targetSystemName == 'basercms' ){ %>
+						<p>Pickles 2 から baserCMS へデータを移行するにあたり、次の点にご注意ください。</p>
+						<ul>
+							<li>baserCMS では、論理階層と物理階層が関連付けて管理されます。<code>path</code>が物理階層と矛盾しないように設計してください。</li>
+							<li>子階層を含むページは、 <code>index.html</code> である必要があります。</li>
+						</ul>
+					<% } %>
+					<div class="px2-responsive">
+						<table class="form_elements" style="width:100%;">
+							<tbody>
+								<tr>
+									<th>出力先ディレクトリ</th>
+									<td>
+										<div>空白のディレクトリを選択してください。</div>
+										<div style="overflow:hidden; max-width: 100%;"><input type="file" nwdirectory name="path_output_dir" value="" /></div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 					<input type="hidden" name="target-system-name" value="<%= targetSystemName %>" />
 					<p><button class="px2-btn px2-btn--primary">実行する</button></p>
 				</form>

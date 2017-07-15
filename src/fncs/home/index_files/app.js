@@ -6,6 +6,11 @@ window.contApp = new (function(){
 	var status = pj.status();
 	var it79 = require('iterate79');
 	var $mainTaskUi;
+	var systemLabel = {
+		'basercms': 'baserCMS',
+		'wordpress': 'Wordpress',
+		'aem': 'Adobe Experience Manager (AEM)'
+	};
 
 	/**
 	 * initialize
@@ -49,19 +54,11 @@ window.contApp = new (function(){
 		var tpl = $('#template-standby').html();
 		tpl = px.utils.bindEjs(tpl, {
 			'exportMenu': [
-				{
-					'label': 'Wordpress',
-					'targetSystemName': 'wordpress'
-				},
-				{
-					'label': 'baserCMS',
-					'targetSystemName': 'basercms'
-				},
-				{
-					'label': 'AEM',
-					'targetSystemName': 'aem'
-				}
-			]
+				'wordpress',
+				'basercms',
+				'aem'
+			],
+			'systemLabel': systemLabel
 		}, {});
 		$mainTaskUi
 			.html( tpl )
@@ -95,7 +92,8 @@ window.contApp = new (function(){
 		// ちゃんとインストールできてます
 		var tpl = $('#template-page-config').html();
 		tpl = px.utils.bindEjs(tpl, {
-			'targetSystemName': systemName
+			'targetSystemName': systemName,
+			'systemLabel': systemLabel
 		}, {});
 		$mainTaskUi
 			.html( tpl )
@@ -105,6 +103,8 @@ window.contApp = new (function(){
 			var systemName = $this.find('input[name=target-system-name]').val();
 			// alert( systemName );
 			var options = {};
+			options.path_output_dir = $this.find('input[name=path_output_dir]').val();
+			// console.log(options);return;
 			_this.pageExecute(systemName, options);
 		});
 		$mainTaskUi.find('.cont-btn-cancel').on('click', function(e){
@@ -132,7 +132,8 @@ window.contApp = new (function(){
 		// 実行中画面を表示します
 		var tpl = $('#template-page-execute').html();
 		tpl = px.utils.bindEjs(tpl, {
-			'targetSystemName': systemName
+			'targetSystemName': systemName,
+			'systemLabel': systemLabel
 		}, {});
 		$mainTaskUi
 			.html( tpl )
@@ -141,7 +142,8 @@ window.contApp = new (function(){
 		px.export(systemName, options, function(result){
 			var tpl = $('#template-page-complete').html();
 			tpl = px.utils.bindEjs(tpl, {
-				'targetSystemName': systemName
+				'targetSystemName': systemName,
+				'systemLabel': systemLabel
 			}, {});
 			$mainTaskUi
 				.html( tpl )

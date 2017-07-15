@@ -6,8 +6,21 @@ module.exports = function(){
 /**
  * baserCMSに出力する
  */
-module.exports.execute = function(px, systemName, option, callback){
+module.exports.execute = function(px, systemName, options, callback){
 	callback = callback || function(){};
+
+	function pad(str, len){
+		str += '';
+		str = phpjs.str_pad(str, len, '0', 'STR_PAD_LEFT');
+		return str;
+	}
+	function getTimeString(){
+		var date = new Date();
+		var rtn = '';
+		rtn += pad(date.getFullYear(),4)+pad(date.getMonth()+1, 2)+pad(date.getDate(), 2);
+		rtn += '-'+pad(date.getHours(),2)+pad(date.getMinutes(), 2);
+		return rtn;
+	}
 
 	var nodePhpBin = px.nodePhpBin;
 	var utils79 = px.utils79;
@@ -15,10 +28,16 @@ module.exports.execute = function(px, systemName, option, callback){
 	var path_mz2_baserCms = require('path').resolve(__dirname+'/../../../../common/php/mz2-baser-cms/execute.php');
 	var entryScript = require('path').resolve(pj.get('path'), pj.get('entry_script'));
 
+	if( !options.path_output_dir || !utils79.is_dir(options.path_output_dir) ){
+		callback(false, 'output directory is NOT exists.');
+		return;
+	}
+
 	var param = {
 		'entryScript': entryScript,
-		'path_output_dir': './' // TODO: 仮
+		'path_output_zip': options.path_output_dir+'/mz2-export-'+getTimeString()+'.zip'
 	};
+
 
 	// PHPスクリプトを実行する
 	var rtn = '';

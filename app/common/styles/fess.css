@@ -457,8 +457,6 @@ html, body {
   .contents table {
     border-collapse: collapse;
     border-spacing: 0; }
-  .contents td, .contents th {
-    padding: 0; }
   .contents p, .contents ul, .contents ol, .contents dl {
     margin: 1em 0; }
   .contents dl dd {
