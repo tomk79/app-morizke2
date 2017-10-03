@@ -35,7 +35,10 @@ module.exports.execute = function(px, systemName, options, callback){
 
 	var param = {
 		'entryScript': entryScript,
-		'path_output_zip': options.path_output_dir+'/mz2-export-'+getTimeString()+'.zip'
+		'path_output_zip': options.path_output_dir+'/mz2-export-'+getTimeString()+'.zip',
+		'options':{
+			'local_resource_mode': options.local_resource_mode
+		}
 	};
 
 

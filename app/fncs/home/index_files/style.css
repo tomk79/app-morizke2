@@ -1,6 +1,5 @@
 .contents td {
-  overflow: auto;
-  white-space: pre; }
+  overflow: auto; }
 
 .contents .cont_maintask_ui {
   padding: 3em 1em 6em; }

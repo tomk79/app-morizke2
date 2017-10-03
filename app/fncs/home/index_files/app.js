@@ -1512,6 +1512,7 @@ window.contApp = new (function(){
 			// alert( systemName );
 			var options = {};
 			options.path_output_dir = $this.find('input[name=path_output_dir]').val();
+			options.local_resource_mode = $this.find('input[name=local_resource_mode]:checked').val();
 			// console.log(options);return;
 			_this.pageExecute(systemName, options);
 		});

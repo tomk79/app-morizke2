@@ -56,6 +56,15 @@
 										<div style="overflow:hidden; max-width: 100%;"><input type="file" nwdirectory name="path_output_dir" value="" /></div>
 									</td>
 								</tr>
+								<tr>
+									<th>コンテンツ個別リソースの出力方式</th>
+									<td>
+										<ul>
+											<li><label><input type="radio" name="local_resource_mode" value="embed" checked="checked" /> dataスキーマに変換して埋め込む</label></li>
+											<li><label><input type="radio" name="local_resource_mode" value="theme_files" /> テーマディレクトリの files フォルダに出力する (ただし、出力後手動でファイル格納フォルダに設置しなおす必要があります)</label></li>
+										</ul>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

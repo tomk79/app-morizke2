@@ -33,8 +33,8 @@ class mz2BaserCms{
 		$this->entryScript = @$arg->entryScript;
 		$this->path_output_zip = @$arg->path_output_zip;
 		$this->options = @$arg->options;
-		if( !is_array($this->options) ){
-			$this->options = array();
+		if( !is_object($this->options) ){
+			$this->options = json_decode('{}');
 		}
 	}
 
@@ -60,11 +60,16 @@ class mz2BaserCms{
 	}
 
 	/**
-	 * px2-git を実行する
+	 * mz2-baser-cms を実行する
 	 * @return void no return.
 	 */
 	public function execute(){
-		$mz2basercms = new \tomk79\pickles2\mz2_baser_cms\main( $this->entryScript );
+		$mz2basercms = new \tomk79\pickles2\mz2_baser_cms\main(
+			$this->entryScript,
+			array(
+				'local_resource_mode'=>$this->options->local_resource_mode
+			)
+		);
 		$res = $mz2basercms->export( $this->path_output_zip );
 		return $res;
 	}
