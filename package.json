@@ -7,7 +7,7 @@
   "scripts": {
     "preinstall": "git submodule update --init --recursive --force",
     "start": "nw",
-    "submodules-update": "rm -rfv node_modules/px2dt-localdata-access; rm -rfv node_modules/px2agent; rm -rfv node_modules/px2style; rm -rfv node_modules/utils79; npm install; gulp;",
+    "submodules-update": "npm install file:submodules/node-px2dt-localdata-access file:submodules/node-px2agent file:submodules/px2style file:submodules/node-utils79; gulp;",
     "build": "node ./build.js"
   },
   "author": "Tomoya Koyanagi",
