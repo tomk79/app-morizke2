@@ -54,9 +54,9 @@ window.contApp = new (function(){
 		var tpl = $('#template-standby').html();
 		tpl = px.utils.bindEjs(tpl, {
 			'exportMenu': [
-				'wordpress',
-				'basercms',
-				'aem'
+				// 'wordpress',
+				'basercms'
+				// 'aem'
 			],
 			'systemLabel': systemLabel
 		}, {});

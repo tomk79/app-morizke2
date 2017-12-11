@@ -74,7 +74,14 @@ new (function($, window){
 	// Pickles 2
 	var _px2agent = require('px2agent');
 	this.px2agent = _px2agent;
-	var _px2dtLDA = new (require('px2dt-localdata-access'))(_path_data_dir);
+	var _px2dtLDA = new (require('px2dt-localdata-access'))(
+		_path_data_dir,
+		{
+			"updated": function(updatedEvents){
+				console.log('Px2DTLDA Data Updated:', updatedEvents);
+			}
+		}
+	);
 	this.px2dtLDA = _px2dtLDA;
 
 	// DOM Parser for NodeJS
